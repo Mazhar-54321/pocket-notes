@@ -1,0 +1,10 @@
+.notes-container{
+    width: 80%;
+    height: 100%;
+    background-color: #DAE5F5;
+}
+@media (max-width: 600px) {
+  .notes-container {
+    width:0%;
+  }
+}

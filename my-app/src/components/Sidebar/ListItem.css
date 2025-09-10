@@ -1,0 +1,9 @@
+.list-item{
+    display: flex;
+    margin-bottom: 0.25rem;
+    padding-left: 1rem;
+    padding-top:1rem ;
+    padding-bottom: 1rem;
+    
+    align-content: center;
+}

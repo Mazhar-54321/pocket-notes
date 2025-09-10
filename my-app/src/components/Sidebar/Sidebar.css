@@ -1,0 +1,22 @@
+.sidebar-container{
+    width:30%;
+    height: 100%;
+    /* padding: 2rem; */
+    text-align: center;
+    position: relative;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+.sticky-button{
+    position: fixed;
+    left:24%;
+    bottom:3%;
+    cursor: pointer;
+   
+}
+
+@media (max-width: 600px) {
+  .sidebar-container {
+    width:100%;
+  }
+}
