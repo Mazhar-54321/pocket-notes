@@ -1,22 +1,28 @@
-.sidebar-container{
-    width:30%;
-    height: 100%;
-    /* padding: 2rem; */
-    text-align: center;
-    position: relative;
-    overflow-y: scroll;
-    scrollbar-width: none;
+.sidebar-container {
+  width: 30%;
+  height: 100%;
+  /* padding: 2rem; */
+  text-align: center;
+  position: relative;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
-.sticky-button{
-    position: fixed;
-    left:24%;
-    bottom:3%;
-    cursor: pointer;
-   
+.list-container {
+  max-height: 85%;
+  overflow-y: auto;
+}
+.sticky-button {
+  position: absolute;
+  bottom: 5%;
+  right: 10%;
+  cursor: pointer;
+}
+h2 {
+  font-size: 35px;
 }
 
 @media (max-width: 600px) {
   .sidebar-container {
-    width:100%;
+    width: 100%;
   }
 }

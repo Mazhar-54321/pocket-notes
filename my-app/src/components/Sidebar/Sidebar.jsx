@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Sidebar.css";
 import ListItem from "./ListItem";
 import Badge from "./Badge";
+import { NotesContext } from "../../hoc/NotesProvider";
+import NotesPopup from "./NotesPopup";
 const menuList = [
   { heading: "Dashboard", initials: "DB", color: "red" },
   { heading: "Profile", initials: "PR", color: "blue" },
@@ -11,17 +13,17 @@ const menuList = [
   { heading: "Analytics", initials: "AN", color: "#ff5733" },
   { heading: "Reports", initials: "RP", color: "rgb(0, 128, 255)" },
   { heading: "Logout", initials: "LO", color: "teal" },
-
-  
 ];
 
 const Sidebar = () => {
   const [selectedItem, setSelectedItem] = useState("");
+  const [showNotesPopup, setShowNotesPopup] = useState(false);
+  const { notes, addNote } = useContext(NotesContext);
   return (
     <aside className="sidebar-container">
-      <h2 style={{ fontSize: "35px" }}>Pocket Notes</h2>
-      <div style={{ maxHeight: "85%", overflowY: "auto" }}>
-        {menuList?.map((menu, index) => (
+      <h2>Pocket Notes</h2>
+      <div className="list-container">
+        {notes?.map((menu, index) => (
           <ListItem
             clickHandler={() => {
               setSelectedItem(menu.heading);
@@ -41,15 +43,11 @@ const Sidebar = () => {
         onClick={() => {
           alert("hi");
         }}
-        style={{
-          position: "absolute",
-          bottom: "10px",
-          right: "10px",
-          cursor: "pointer",
-        }}
+        className="sticky-button"
       >
         <Badge color={"#16008B"} initials={"\u271A"} />
       </div>
+      {showNotesPopup && <NotesPopup />}
     </aside>
   );
 };
