@@ -1,12 +1,12 @@
 .notes-container {
-  width: 80%;
-  height: 100%;
+   width: 80%;
+  height: 100%; 
   background-color: #dae5f5;
 }
 .default-layout {
-  width: 100%;
+   width: 100%; 
   position: relative;
-  height: 100%;
+  height:100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,7 +14,6 @@
 }
 @media (max-width: 600px) {
   .notes-container {
-    display: none;
-    /* width:0%; */
+    width: 100%;
   }
 }

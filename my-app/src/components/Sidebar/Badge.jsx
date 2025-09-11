@@ -1,13 +1,12 @@
 import React from "react";
 
-const Badge = ({ initials, color,width='2.5rem',height='2.5rem',border='transparent' }) => {
-  console.log(initials,color)
+const Badge = ({ initials, color,width='2.5rem',height='2.5rem',opacity=1 }) => {
   return (
     <div
       style={{
         width: width,
         height: height,
-        border: `1px solid ${border}`,
+        opacity:opacity,
         backgroundColor: `${color}`,
         borderRadius: "50%",
         color: "white",

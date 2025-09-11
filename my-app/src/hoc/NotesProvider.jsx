@@ -1,30 +1,59 @@
-import React, { createContext, useState } from 'react'
-export const NotesContext =createContext();
-const NotesProvider = ({children}) => {
-  const [notes,setNotes]= useState([
-  { heading: "Dashboard", initials: "DB", color: "red" },
-  { heading: "Profile", initials: "PR", color: "blue" },
-  { heading: "Settings", initials: "ST", color: "green" },
-  { heading: "Notifications", initials: "NT", color: "orange" },
-  { heading: "Messages", initials: "MS", color: "purple" },
-  { heading: "Analytics", initials: "AN", color: "#ff5733" },
-  { heading: "Reports", initials: "RP", color: "rgb(0, 128, 255)" },
-  { heading: "Logout", initials: "LO", color: "teal" },
+import React, { createContext, useEffect, useState } from "react";
+export const NotesContext = createContext();
+const NotesProvider = ({ children }) => {
+  const [groups, setGroups] = useState([]);
+  const [selectedGroup, setSelectedGroup] = useState("");
+  const addGroup = (groupObj) => {
+    if (
+      !groups.filter(
+        (el) => el.name.toLowerCase() === groupObj.name.toLowerCase()
+      ).length
+    ) {
+      setGroups((prev) => [{ ...groupObj, notes: [] }, ...prev]);
+      localStorage.setItem("group-notes", JSON.stringify([
+        { ...groupObj, notes: [] },
+        ...groups,
+      ]));
+    } else {
+      alert("Group name already exists");
+    }
+  };
+  const modifySelectedGroup = (groupName) => {
+    setSelectedGroup(groupName);
+  };
 
-  
-]);
-const addGroup = (groupName)=>{
-
-}
-
-  const addNote = (noteObj,groupKey)=>{
-   setNotes(noteObj);
-  }  
+  const addNote = (groupKey, note) => {
+    let groupsArray = [...groups];
+    const date = new Date();
+    const datePart = date.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+    const timePart = date.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+    groupsArray = groupsArray.map((el) => {
+      if (el.name === groupKey) {
+        el.notes = [
+          { note: note, date: datePart, time: timePart },
+          ...el.notes,
+        ];
+      }
+      return el;
+    });
+    setGroups(groupsArray);
+    localStorage.setItem("group-notes", JSON.stringify(groupsArray));
+  };
   return (
-    <NotesContext.Provider value={{notes,addNote}}>
-        {children}
+    <NotesContext.Provider
+      value={{ groups, addGroup, selectedGroup, modifySelectedGroup, addNote,setGroups }}
+    >
+      {children}
     </NotesContext.Provider>
-  )
-}
+  );
+};
 
-export default NotesProvider
+export default NotesProvider;

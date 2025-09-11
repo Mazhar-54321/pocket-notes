@@ -2,7 +2,7 @@ import "./Default.css";
 
 const Default = ({ heading, title1, title2, imgSrc, imgSrc2 }) => {
   return (
-    <div>
+    <div className="default-container">
       <img src={imgSrc} />
       <h1>{heading}</h1>
       <p>{title1}</p>

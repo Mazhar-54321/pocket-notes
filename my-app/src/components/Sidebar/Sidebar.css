@@ -23,6 +23,6 @@ h2 {
 
 @media (max-width: 600px) {
   .sidebar-container {
-    width: 100%;
+    flex-basis: 100%;
   }
 }
