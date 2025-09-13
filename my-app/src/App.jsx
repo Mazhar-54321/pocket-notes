@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import "./App.css";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Notes from "./components/Notes/Notes";
-import NotesProvider, { NotesContext } from "./hoc/NotesProvider";
+import NotesContainer from "./components/Notes/NotesContainer";
+import { NotesContext } from "./hoc/NotesProvider";
 
 function App() {
-  const [width, setWidth] = useState(window.innerWidth);
-  const [tab, setTab] = useState(0);
-  const { groups, selectedGroup, setGroups } = useContext(NotesContext);
+  const [state, setState] = useState({ width: window.innerWidth, tab: 0 });
+  const { selectedGroup, setGroups } = useContext(NotesContext);
   useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
+    const handleResize = () =>
+      setState((prev) => ({ ...prev, width: window.innerWidth }));
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   });
@@ -19,23 +19,26 @@ function App() {
       setGroups(JSON.parse(groupNotes));
     }
   }, []);
- 
+
   useEffect(() => {
-    setTab(selectedGroup?.length);
+    setState((prev) => ({ ...prev, tab: selectedGroup?.length }));
   }, [selectedGroup]);
-  return <main className="main-container">{width <= 600 ? (
-      tab ? (
-        <Notes />
+  return (
+    <main className="main-container">
+      {state?.width <= 600 ? (
+        state?.tab ? (
+          <NotesContainer />
+        ) : (
+          <Sidebar />
+        )
       ) : (
-        <Sidebar />
-      )
-    ) : (
-      <>
-      
-        <Sidebar />
-        <Notes />
-      </>
-    )}</main>;
+        <>
+          <Sidebar />
+          <NotesContainer />
+        </>
+      )}
+    </main>
+  );
 }
 
 export default App;
